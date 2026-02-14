@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sistema de Orçamentos e Pedidos (Em Desenvolvimento)
 
-## Getting Started
+## 🎯 Finalidade do Projeto
 
-First, run the development server:
+Este projeto é um mini sistema para gerenciar produtos, orçamentos e pedidos, com o objetivo de aprender e aplicar conceitos de sistemas web completos, incluindo CRUD, banco de dados relacional e fluxo de negócios real.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+O sistema permitirá:
+- Cadastro de produtos
+- Criação de orçamentos adicionando produtos
+- Conversão de orçamentos em pedidos
+- Armazenamento de todas as informações em um banco SQLite
+
+---
+
+## 🛠 Tecnologias Previstas
+
+- [Next.js](https://nextjs.org/) (TypeScript, App Router)
+- [Tailwind CSS](https://tailwindcss.com/) para estilização rápida e moderna
+- [Zod](https://zod.dev/) para validação de dados
+- SQLite como banco de dados relacional leve
+
+---
+
+## 📂 Estrutura do Projeto
+
+```
+app/
+components/
+lib/
+schemas/
+database/
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- `app/` → telas e rotas do Next.js  
+- `components/` → componentes visuais reutilizáveis  
+- `lib/` → conexão com o banco (`db.ts`)  
+- `schemas/` → validação de dados com Zod  
+- `database/` → arquivo SQLite (`database.db`)  
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ⚡ Funcionalidades Planejadas
 
-## Learn More
+- **Produtos:** Listagem, criação e validação de dados  
+- **Orçamentos:** Adição de produtos, cálculo de total e armazenamento  
+- **Pedidos:** Conversão de orçamentos em pedidos e atualização de status  
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🧠 O que pretendo aprender com este projeto
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- Estrutura de sistemas web modernos  
+- CRUD completo (Produtos, Orçamentos, Pedidos)  
+- Banco relacional com SQLite  
+- Validação de formulários com Zod  
+- Separação entre Front-end e API  
+- Fluxo de negócio (Orçamento → Pedido)
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
