@@ -30,7 +30,7 @@ export default function OrcamentosPage() {
     });
 
     if (response.ok) {
-      alert("Orçamento convertido em pedido!");
+      alert("Pedido feito!");
       fetchOrcamentos(); // opcional, atualizar lista
     } else {
       const data = await response.json();
@@ -38,29 +38,86 @@ export default function OrcamentosPage() {
     }
   };
 
-  return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Orçamentos</h1>
+return (
+  <div className="w-full max-w-4xl mx-auto flex flex-col">
 
-      <Link href="/orcamentos/create">
-        <button className="mb-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
+    <h1 className="text-6xl font-bold text-center mt-12">
+      Orçamentos
+    </h1>
+
+    {/* CARD PRINCIPAL */}
+    <div className="flex justify-center mt-16">
+      <div
+        className="
+          bg-[#1E1F24]
+          max-w-md w-full
+          p-8 rounded-2xl
+          shadow-[0_10px_40px_rgba(42,45,52,0.6)]
+          border border-[#343741]
+          text-center
+        "
+      >
+        <h2 className="text-2xl font-bold mb-6">
+          Crie e gerencie seus orçamentos
+        </h2>
+
+        <Link
+          href="/orcamentos/create"
+          className="
+            inline-block 
+            bg-gradient-to-r from-purple-600 to-blue-600
+            px-6 py-3 rounded-xl 
+            font-medium text-lg
+            hover:opacity-90 transition-all duration-200
+          "
+        >
           Novo Orçamento
-        </button>
-      </Link>
-
-      <ul className="space-y-2">
-        {orcamentos.map(o => (
-          <li key={o.id} className="border p-2 rounded flex justify-between items-center">
-            <span>{new Date(o.data).toLocaleString()} - R$ {o.total.toFixed(2)}</span>
-            <button
-              className="px-2 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600"
-              onClick={() => converterEmPedido(o.id)}
-            >
-              Converter em Pedido
-            </button>
-          </li>
-        ))}
-      </ul>
+        </Link>
+      </div>
     </div>
-  );
+
+    {/* LISTA */}
+    <ul className="space-y-4 mt-16">
+      {orcamentos.map(o => (
+        <li
+          key={o.id}
+          className="
+            bg-[#2A2D34] 
+            p-4 
+            rounded-xl 
+            flex justify-between items-center 
+            border border-[#343741] 
+            hover:border-purple-500 
+            transition
+          "
+        >
+          <div>
+            <p className="font-semibold text-lg">
+              {new Date(o.data).toLocaleString()}
+            </p>
+            <p className="text-gray-400 text-sm">
+              R$ {o.total.toFixed(2)}
+            </p>
+          </div>
+
+          <button
+            onClick={() => converterEmPedido(o.id)}
+            className="
+              px-4 py-2 
+              bg-yellow-600/20 
+              text-yellow-400 
+              rounded-xl 
+              border border-yellow-500/30
+              hover:bg-yellow-600/30 
+              transition
+            "
+          >
+            Fazer Pedido
+          </button>
+        </li>
+      ))}
+    </ul>
+
+  </div>
+);
 }

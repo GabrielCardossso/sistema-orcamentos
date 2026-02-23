@@ -57,76 +57,187 @@ export default function CreateOrcamento() {
     }
   };
 
-  return (
-    <div className="p-6">
-      <h1 className="text-2xl font-bold mb-4">Novo Orçamento</h1>
+return (
+  <div className="w-full max-w-4xl mx-auto flex flex-col">
 
-      <div className="mb-4">
-        <h2 className="font-semibold mb-2">Produtos</h2>
-        <div className="grid grid-cols-3 gap-2">
-          {produtos.map(prod => (
-            <button
-              key={prod.id}
-              onClick={() => addItem(prod)}
-              className="border p-2 rounded hover:bg-gray-100"
-            >
-              {prod.nome} - R$ {prod.preco.toFixed(2)}
-            </button>
-          ))}
+    <h1 className="text-6xl font-bold text-center mt-12">
+      Novo Orçamento
+    </h1>
+
+    <div className="flex justify-center mt-16">
+      <div
+        className="
+          bg-[#1E1F24]
+          w-full
+          max-w-2xl
+          p-10
+          rounded-2xl
+          shadow-[0_10px_40px_rgba(42,45,52,0.6)]
+          border border-[#343741]
+        "
+      >
+
+        {/* PRODUTOS */}
+        <div className="mb-10">
+          <h2 className="text-2xl font-semibold mb-6">
+            Produtos
+          </h2>
+
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {produtos.map(prod => (
+              <button
+                key={prod.id}
+                onClick={() => addItem(prod)}
+                className="
+                  bg-[#2A2D34]
+                  border border-[#343741]
+                  rounded-xl
+                  p-4
+                  text-left
+                  hover:border-purple-500
+                  transition
+                "
+              >
+                <p className="font-semibold">
+                  {prod.nome}
+                </p>
+                <p className="text-gray-400 text-sm">
+                  R$ {prod.preco.toFixed(2)}
+                </p>
+              </button>
+            ))}
+          </div>
         </div>
-      </div>
 
-      <div className="mb-4">
-        <h2 className="font-semibold mb-2">Itens do orçamento</h2>
-        <ul>
-          {itens.map(item => {
-            const produto = produtos.find(p => p.id === item.produto_id);
-            return (
-              <li key={item.produto_id} className="flex items-center justify-between mb-1">
-                <span>{produto?.nome}</span>
-                <div className="flex items-center gap-2">
-                  <button
-                    className="px-2 bg-gray-200 rounded"
-                    onClick={() =>
-                      setItens(itens.map(i =>
-                        i.produto_id === item.produto_id
-                          ? { ...i, quantidade: Math.max(1, i.quantidade - 1) }
-                          : i
-                      ))
-                    }
-                  >-</button>
-                  <span>{item.quantidade}</span>
-                  <button
-                    className="px-2 bg-gray-200 rounded"
-                    onClick={() =>
-                      setItens(itens.map(i =>
-                        i.produto_id === item.produto_id
-                          ? { ...i, quantidade: i.quantidade + 1 }
-                          : i
-                      ))
-                    }
-                  >+</button>
-                  <span>R$ {(item.quantidade * item.preco_unitario).toFixed(2)}</span>
-                  <button
-                    className="text-red-500"
-                    onClick={() => setItens(itens.filter(i => i.produto_id !== item.produto_id))}
-                  >
-                    Remover
-                  </button>
-                </div>
-              </li>
-            );
-          })}
-        </ul>
-        <p className="mt-2 font-bold">Total: R$ {total.toFixed(2)}</p>
-        <button
-          onClick={criarOrcamento}
-          className="mt-2 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
-          disabled={itens.length === 0}
-        >
-          Salvar Orçamento
-        </button>
+        {/* ITENS */}
+        <div>
+          <h2 className="text-2xl font-semibold mb-6">
+            Itens do orçamento
+          </h2>
+
+          {itens.length === 0 && (
+            <p className="text-gray-400">
+              Nenhum produto adicionado.
+            </p>
+          )}
+
+          <ul className="space-y-4">
+            {itens.map(item => {
+              const produto = produtos.find(p => p.id === item.produto_id);
+              return (
+                <li
+                  key={item.produto_id}
+                  className="
+                    bg-[#2A2D34]
+                    border border-[#343741]
+                    rounded-xl
+                    p-4
+                    flex justify-between items-center
+                  "
+                >
+                  <div>
+                    <p className="font-semibold">
+                      {produto?.nome}
+                    </p>
+                    <p className="text-gray-400 text-sm">
+                      R$ {(item.quantidade * item.preco_unitario).toFixed(2)}
+                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-3">
+
+                    <button
+                      className="
+                        px-3 py-1
+                        bg-[#1E1F24]
+                        border border-[#343741]
+                        rounded-lg
+                        hover:border-purple-500
+                        transition
+                      "
+                      onClick={() =>
+                        setItens(itens.map(i =>
+                          i.produto_id === item.produto_id
+                            ? { ...i, quantidade: Math.max(1, i.quantidade - 1) }
+                            : i
+                        ))
+                      }
+                    >
+                      -
+                    </button>
+
+                    <span className="font-semibold">
+                      {item.quantidade}
+                    </span>
+
+                    <button
+                      className="
+                        px-3 py-1
+                        bg-[#1E1F24]
+                        border border-[#343741]
+                        rounded-lg
+                        hover:border-purple-500
+                        transition
+                      "
+                      onClick={() =>
+                        setItens(itens.map(i =>
+                          i.produto_id === item.produto_id
+                            ? { ...i, quantidade: i.quantidade + 1 }
+                            : i
+                        ))
+                      }
+                    >
+                      +
+                    </button>
+
+                    <button
+                      className="
+                        text-red-400
+                        hover:text-red-500
+                        transition
+                        ml-2
+                      "
+                      onClick={() =>
+                        setItens(itens.filter(i => i.produto_id !== item.produto_id))
+                      }
+                    >
+                      Remover
+                    </button>
+
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+
+          {/* TOTAL */}
+          <div className="mt-8 flex justify-between items-center">
+            <p className="text-xl font-bold">
+              Total: R$ {total.toFixed(2)}
+            </p>
+
+            <button
+              onClick={criarOrcamento}
+              disabled={itens.length === 0}
+              className="
+                bg-gradient-to-r from-purple-600 to-blue-600
+                px-6 py-3
+                rounded-xl
+                font-semibold
+                hover:opacity-90
+                transition
+                disabled:opacity-40
+              "
+            >
+              Salvar Orçamento
+            </button>
+          </div>
+
+        </div>
+
       </div>
     </div>
-  );
+
+  </div>
+);
 }
